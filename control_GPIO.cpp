@@ -22,34 +22,34 @@ using namespace std;
 #define GPIO_PATH "/sys/class/gpio/"
 
 int writeGPIO(string gpio_number, string state){
-	fstream fs;
+	ofstream fs;
 	string path(GPIO_PATH);
 
 	ostringstream s;
 	s << "gpio" << gpio_number;
 	string name = string(s.str()) + "/";
 
-	fs.open((path + name + "value").c_str(), fstream::out);
+	fs.open((path + name + "value").c_str());
 	
-	if(state == "high"){
-	       	fs << 1;
+	if(state == "hi"){
+	       	fs << "1";
 	}
 	else{
-	       	fs << 0;
+	       	fs << "0";
 	}
 	fs.close();
 	return 0;
 }
 
 string readGPIO(string gpio_number){
-	fstream fs;
+	ifstream fs;
 	string path(GPIO_PATH);
 
 	ostringstream s;
 	s << "gpio" << gpio_number;
 	string name = string(s.str()) + "/";
 
-	fs.open((path + name + "value").c_str(), fstream::in);
+	fs.open((path + name + "value").c_str());
 	string input;
 	getline(fs, input);
 	fs.close();
